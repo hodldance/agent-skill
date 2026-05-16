@@ -1,0 +1,22 @@
+{
+  "name": "@hodl-dance/skill",
+  "version": "1.1.0",
+  "description": "AI Agent Skill for HODL.DANCE — memecoin launchpad on BSC",
+  "main": "src/index.js",
+  "bin": {
+    "hodl-skill": "src/index.js"
+  },
+  "keywords": ["hodl-dance", "memecoin", "bsc", "bonding-curve", "ai-agent", "skill", "defi"],
+  "author": "HODL.DANCE",
+  "license": "MIT",
+  "dependencies": {
+    "ethers": "^6.13.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hodldance/agent-skill"
+  }
+}
