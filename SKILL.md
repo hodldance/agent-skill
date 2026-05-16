@@ -10,8 +10,8 @@ Tokens trade on the curve until 19 BNB is raised, then liquidity auto-migrates t
 - **Network:** BSC Mainnet (Chain ID: 56)
 - **Native currency:** BNB
 - **Fee:** 1% per trade (buy and sell)
-- **API:** https://hodl.dance/api (public, no API key required)
-- **Docs:** https://docs.hodl.dance
+- **API:** [https://hodl.dance/api](https://hodl.dance/api) (public, no API key required)
+- **Docs:** [https://docs.hodl.dance](https://docs.hodl.dance)
 
 ## Installation
 
@@ -23,7 +23,7 @@ npx @hodl-dance/skill <command>
 
 ## Credentials
 
-Required only for `buy-token` and `sell-token`:
+Required only for `create-token`, `buy-token` and `sell-token`:
 
 ```bash
 export HODL_PRIVATE_KEY=0xyour_private_key
@@ -100,6 +100,44 @@ hodl-skill quote 0xbc1234... sell 500000
 
 ---
 
+### `create-token`
+
+Deploy a new token + bonding curve on HODL.DANCE. Uploads logo to IPFS, then sends on-chain transaction.
+
+```bash
+hodl-skill create-token --name="Moon Cat" --symbol=MCAT --logo=./logo.png
+
+hodl-skill create-token \
+  --name="Moon Cat" \
+  --symbol=MCAT \
+  --logo=./logo.png \
+  --category=meme \
+  --description="The cat that dances on the moon" \
+  --twitter="https://x.com/mooncat" \
+  --telegram="https://t.me/mooncat" \
+  --website="https://mooncat.io" \
+  --initial-buy=0.1
+```
+
+**Requires:** `HODL_PRIVATE_KEY`
+
+**Options:**
+- `--name` — token name, 3–40 characters *(required)*
+- `--symbol` — token symbol, 1–10 characters *(required)*
+- `--logo` — path to local image file PNG/JPG/WEBP, max 5MB *(required)*
+- `--category` — `meme|ai|games|social|other` (default: `meme`)
+- `--description` — token description, max 500 characters
+- `--website` — `https://...`
+- `--twitter` — `https://x.com/...`
+- `--telegram` — `https://t.me/...`
+- `--initial-buy` — BNB amount to buy in the same transaction (default: `0`)
+
+> Deploy fee: **0.0001 BNB**. If `--initial-buy` is set, total value = `0.0001 + initial-buy`.
+
+**Output:** `tx_hash`, `block_number`, `gas_used`, `token_address`, `bonding_curve_address`, `name`, `symbol`, `category`, `logo_ipfs`, `initial_buy_bnb`
+
+---
+
 ### `buy-token <bondingCurveAddress> <bnbAmount> [--recipient=0x...]`
 
 Buy tokens using BNB. Sends transaction on-chain.
@@ -159,7 +197,7 @@ Exit code `0` = success, `1` = error.
 | Code | Meaning |
 |---|---|
 | `MISSING_ARG` | Required argument not provided |
-| `INVALID_ARG` | Invalid argument value |
+| `INVALID_ARG` | Invalid argument value (e.g. logo file not found) |
 | `TOKEN_FINALIZED` | Token migrated to PancakeSwap V3, bonding curve closed |
 | `INSUFFICIENT_BALANCE` | Not enough tokens to sell |
 | `ERROR` | General error (message contains details) |
@@ -189,6 +227,19 @@ Exit code `0` = success, `1` = error.
    → check approve_was_needed in output
 ```
 
+### Token Launch Workflow
+
+```
+1. create-token --name="..." --symbol=... --logo=./logo.png --initial-buy=0.1
+   → deploys token + bonding curve, returns token_address and bonding_curve_address
+
+2. quote <bonding_curve_address> buy 0.5
+   → verify expected tokens before buying more
+
+3. buy-token <bonding_curve_address> 0.5
+   → accumulate position
+```
+
 ---
 
 ## Contract Addresses (BSC Mainnet, Chain ID 56)
@@ -200,4 +251,4 @@ Exit code `0` = success, `1` = error.
 | Locker | `0x562ff19485674d9b965ab14a1034370f5e3af7c9` |
 
 > Each token has its own unique Bonding Curve instance.
-> Always fetch `bonding_curve_address` from `get-token` or `get-tokens` — do not use the template address.
+> Always fetch `bonding_curve_address` from `get-token`, `get-tokens` or `create-token` — do not use the template address.

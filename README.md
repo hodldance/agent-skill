@@ -48,6 +48,19 @@ Require `HODL_PRIVATE_KEY` env variable.
 ```bash
 export HODL_PRIVATE_KEY=0xyour_private_key
 
+# Create a new token (deploys token + bonding curve)
+hodl-skill create-token --name="Moon Cat" --symbol=MCAT --logo=./logo.png
+hodl-skill create-token \
+  --name="Moon Cat" \
+  --symbol=MCAT \
+  --logo=./logo.png \
+  --category=meme \
+  --description="The cat that dances on the moon" \
+  --twitter="https://x.com/mooncat" \
+  --telegram="https://t.me/mooncat" \
+  --website="https://mooncat.io" \
+  --initial-buy=0.1
+
 # Buy tokens with BNB
 hodl-skill buy-token 0xbc1234... 0.1
 
@@ -58,7 +71,7 @@ hodl-skill buy-token 0xbc1234... 0.1 --recipient=0xfriend...
 hodl-skill sell-token 0xbc1234... 1000000
 ```
 
-> `0xbc1234...` = `bonding_curve_address` field from `get-tokens` or `get-token` output.
+> `0xbc1234...` = `bonding_curve_address` field from `get-tokens`, `get-token` or `create-token` output.
 
 ---
 
@@ -77,9 +90,9 @@ Exit code `0` on success, `1` on error.
 
 ## Links
 
-- **Platform:** https://hodl.dance
-- **API Docs:** https://docs.hodl.dance
-- **GitHub:** https://github.com/hodldance/agent-skill
+- **Platform:** [https://hodl.dance](https://hodl.dance)
+- **API Docs:** [https://docs.hodl.dance](https://docs.hodl.dance)
+- **GitHub:** [https://github.com/hodldance/agent-skill](https://github.com/hodldance/agent-skill)
 - **Skill reference:** [SKILL.md](./SKILL.md)
 - **Network:** BSC Mainnet (Chain ID 56)
 
