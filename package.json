@@ -6,11 +6,21 @@
   "bin": {
     "hodl-skill": "src/index.js"
   },
-  "keywords": ["hodl-dance", "memecoin", "bsc", "bonding-curve", "ai-agent", "skill", "defi"],
+  "keywords": [
+    "hodl-dance",
+    "memecoin",
+    "bsc",
+    "bonding-curve",
+    "ai-agent",
+    "skill",
+    "defi"
+  ],
   "author": "HODL.DANCE",
   "license": "MIT",
   "dependencies": {
-    "ethers": "^6.13.0"
+    "ethers": "^6.13.0",
+    "form-data": "^4.0.5",
+    "node-fetch": "^2.7.0"
   },
   "engines": {
     "node": ">=18.0.0"
