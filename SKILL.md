@@ -248,7 +248,6 @@ Exit code `0` = success, `1` = error.
 |---|---|
 | Token Factory | `0x99A1F02f56E8356e6E90A880DBb1be6EC7485737` |
 | Bonding Curve Template | `0xea508aD6B550E94aC45831F265B2bD5346d06700` |
-| Locker | `0x562ff19485674d9b965ab14a1034370f5e3af7c9` |
 
 > Each token has its own unique Bonding Curve instance.
 > Always fetch `bonding_curve_address` from `get-token`, `get-tokens` or `create-token` — do not use the template address.

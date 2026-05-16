@@ -9,6 +9,7 @@ const COMMANDS = {
   'quote':       './commands/quote',
   'buy-token':   './commands/buy-token',
   'sell-token':  './commands/sell-token',
+  'create-token':'./commands/create-token',
 };
 
 const cmd = process.argv[2];
