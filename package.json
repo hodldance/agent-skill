@@ -1,6 +1,6 @@
 {
   "name": "@hodl-dance/skill",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "AI Agent Skill for HODL.DANCE — memecoin launchpad on BSC",
   "main": "src/index.js",
   "bin": {
