@@ -15,7 +15,7 @@ const COMMANDS = {
 const cmd = process.argv[2];
 
 if (!cmd || cmd === '--help' || cmd === '-h') {
-  process.stdout.write(JSON.stringify({
+  const helpData = {
     success: true,
     data: {
       skill:    'HODL.DANCE Agent Skill',
@@ -24,8 +24,11 @@ if (!cmd || cmd === '--help' || cmd === '-h') {
       usage:    'hodl-skill <command> [args]',
       docs:     'https://docs.hodl.dance',
     }
-  }, null, 2));
-  process.exit(0);
+  };
+
+  process.stdout.write(JSON.stringify(helpData, null, 2) + '\n');
+  process.exitCode = 0;
+  return;
 }
 
 if (!COMMANDS[cmd]) {
