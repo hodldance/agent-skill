@@ -15,6 +15,7 @@
 const { ethers }                           = require('ethers');
 const { getWallet, getCurve, simulateBuy } = require('../lib/chain');
 const { ok, err }                          = require('../lib/output');
+const { requireValidAddress }              = require('../lib/validators');
 
 const args         = process.argv.slice(2);
 const curveAddress = args[0];
@@ -27,6 +28,8 @@ const flags        = Object.fromEntries(
 if (!curveAddress || !bnbAmount) {
   err('Usage: buy-token <bondingCurveAddress> <bnbAmount> [--recipient=0x...]', 'MISSING_ARG');
 }
+
+requireValidAddress(curveAddress, 'bondingCurveAddress');
 
 const recipient = flags.recipient || null;
 

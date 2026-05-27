@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const { apiFetch } = require('../lib/api');
-const { ok, err }  = require('../lib/output');
+const { ok, err, stripMongoFields } = require('../lib/output');
 
 const args = Object.fromEntries(
   process.argv.slice(2)
@@ -17,9 +17,9 @@ const args = Object.fromEntries(
     finalized: args.finalized,
     search:    args.search,
   });
-  const tokens = data.tokens.map(({ _id, __v, ...t }) => t);
+
   ok({
-    tokens,
+    tokens: stripMongoFields(data.tokens),
     total:  data.total,
     limit:  data.limit,
     offset: data.offset,

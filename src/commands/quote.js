@@ -11,11 +11,14 @@
 const { ethers }                    = require('ethers');
 const { simulateBuy, simulateSell } = require('../lib/chain');
 const { ok, err }                   = require('../lib/output');
+const { requireValidAddress }       = require('../lib/validators');
 
 const [,, curveAddress, side, amount] = process.argv;
 if (!curveAddress || !side || !amount) {
   err('Usage: quote <bondingCurveAddress> buy|sell <amount>', 'MISSING_ARG');
 }
+
+requireValidAddress(curveAddress, 'bondingCurveAddress');
 if (!['buy', 'sell'].includes(side)) err('side must be: buy | sell', 'INVALID_ARG');
 
 (async () => {

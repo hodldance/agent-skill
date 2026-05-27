@@ -19,11 +19,14 @@
 const { ethers }                                      = require('ethers');
 const { getWallet, getCurve, getToken, simulateSell } = require('../lib/chain');
 const { ok, err }                                     = require('../lib/output');
+const { requireValidAddress }                         = require('../lib/validators');
 
 const [,, curveAddress, tokenAmount] = process.argv;
 if (!curveAddress || !tokenAmount) {
   err('Usage: sell-token <bondingCurveAddress> <tokenAmount>', 'MISSING_ARG');
 }
+
+requireValidAddress(curveAddress, 'bondingCurveAddress');
 
 (async () => {
   const wallet = getWallet();
